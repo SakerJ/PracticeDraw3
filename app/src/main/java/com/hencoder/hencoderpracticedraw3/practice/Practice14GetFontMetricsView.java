@@ -27,11 +27,16 @@ public class Practice14GetFontMetricsView extends View {
         super(context, attrs, defStyleAttr);
     }
 
+    private float offset;
+
     {
         paint1.setStyle(Paint.Style.STROKE);
         paint1.setStrokeWidth(20);
         paint1.setColor(Color.parseColor("#E91E63"));
         paint2.setTextSize(160);
+
+        Paint.FontMetrics metrics = paint2.getFontMetrics();
+        offset = (metrics.ascent + metrics.descent) / 2;
     }
 
     @Override
@@ -45,11 +50,12 @@ public class Practice14GetFontMetricsView extends View {
         // 这种居中算法的优点是，可以让不同的文字的 baseline 对齐
 
         int middle = (top + bottom) / 2;
-        canvas.drawText(texts[0], 100, middle, paint2);
-        canvas.drawText(texts[1], 200, middle, paint2);
-        canvas.drawText(texts[2], 300, middle, paint2);
-        canvas.drawText(texts[3], 400, middle, paint2);
-        canvas.drawText(texts[4], 500, middle, paint2);
-        canvas.drawText(texts[5], 600, middle, paint2);
+        canvas.drawText(texts[0], 100, middle - offset, paint2);
+        canvas.drawText(texts[1], 200, middle - offset, paint2);
+        canvas.drawText(texts[2], 300, middle - offset, paint2);
+        canvas.drawText(texts[3], 400, middle - offset, paint2);
+        canvas.drawText(texts[4], 500, middle - offset, paint2);
+        canvas.drawText(texts[5], 600, middle - offset, paint2);
+        // 此练习有误。对于y点相同的多个drawText，文字的baseline都是对齐的，无需计算
     }
 }
